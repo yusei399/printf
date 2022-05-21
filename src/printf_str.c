@@ -1,60 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pstr.c                                          :+:      :+:    :+:   */
+/*   printf_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuseiikeda <yuseiikeda@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/23 12:58:07 by yuseiikeda        #+#    #+#             */
-/*   Updated: 2022/04/23 15:51:02 by yuseiikeda       ###   ########.fr       */
+/*   Created: 2022/05/18 17:26:21 by yuseiikeda        #+#    #+#             */
+/*   Updated: 2022/05/18 17:26:23 by yuseiikeda       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "include/ft_printf.h"
+#include "libft/libft.h"
 
-void	ft_putstr(char *str)
+static int	ft_putstr(char *args)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (args[i])
 	{
-		write(1, &str[i], 1);
-	}
-}
-
-int	ft_pristr(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str == NULL)
-	{
-		ft_putstr("(null)");
-		return (6);
-	}
-	while (str[i])
-	{
-		write(1, &str[i], 1);
+		write(1, &args[i], 1);
 		i++;
 	}
 	return (i);
 }
 
-int	ft_pnbr(int n)
+int	printf_str(char *args)
 {
-	int		len;
-	char	*num;
+	int	i;
 
-	len = 0;
-	num = ft_itoa(n);
-	len = ft_pristr(num);
-	free(num);
-	return (len);
-}
-
-int	ft_percent(void)
-{
-	write(1, '%', 1);
-	return (1);
+	if (args == NULL)
+		return (ft_putstr("(null)"));
+	i = 0;
+	while (args[i])
+	{
+		write(1, &args[i], 1);
+		i++;
+	}
+	return (i);
 }

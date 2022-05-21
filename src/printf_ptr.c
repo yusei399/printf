@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_ptr.c                                        :+:      :+:    :+:   */
+/*   printf_ptr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuseiikeda <yuseiikeda@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/23 15:51:50 by yuseiikeda        #+#    #+#             */
-/*   Updated: 2022/04/23 16:02:08 by yuseiikeda       ###   ########.fr       */
+/*   Created: 2022/05/18 17:26:16 by yuseiikeda        #+#    #+#             */
+/*   Updated: 2022/05/21 12:44:16 by yuseiikeda       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "include/ft_printf.h"
+#include "libft/libft.h"
 
-int	ft_p_len(uintptr_t n)
+int	ft_ptr_len(unsigned long n)
 {
 	int	len;
 
@@ -25,34 +26,34 @@ int	ft_p_len(uintptr_t n)
 	return (len);
 }
 
-void	ft_pstr(uintptr_t n)
+void	ft_put_ptr(unsigned long n)
 {
 	if (n >= 16)
 	{
-		ft_pstr(n / 16);
-		ft_pstr(n % 16);
+		ft_put_ptr(n / 16);
+		ft_put_ptr(n % 16);
 	}
 	else
 	{
 		if (n <= 9)
-			ft_putchar_fd((n + '0'),1);
+			ft_putchar_fd((n + '0'), 1);
 		else
 			ft_putchar_fd((n - 10 + 'a'), 1);
 	}
 }
 
-int	ft_pri_ptr(unsigned long long p)
+int	printf_ptr(unsigned long long ptr)
 {
-	int	len;
+	int	print_length;
 
-	len = 0;
-	len += write(1, "0x", 2);
-	if (p == 0)
-		len += write(1, "0", 1);
+	print_length = 0;
+	print_length += write(1, "0x", 2);
+	if (ptr == 0)
+		print_length += write(1, "0", 1);
 	else
 	{
-		ft_pri_ptr(p);
-		len += ft_p_len(p);
+		ft_put_ptr(ptr);
+		print_length += ft_ptr_len(ptr);
 	}
-	return (len);
+	return (print_length);
 }
